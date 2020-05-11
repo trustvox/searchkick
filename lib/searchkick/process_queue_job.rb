@@ -2,7 +2,7 @@ module Searchkick
   class ProcessQueueJob < ActiveJob::Base
     queue_as { Searchkick.queue_name }
 
-    def perform(class_name:)
+    def perform(class_name: nil)
       model = class_name.constantize
 
       limit = model.searchkick_index.options[:batch_size] || 1000

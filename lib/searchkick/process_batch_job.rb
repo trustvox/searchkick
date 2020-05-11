@@ -2,7 +2,7 @@ module Searchkick
   class ProcessBatchJob < ActiveJob::Base
     queue_as { Searchkick.queue_name }
 
-    def perform(class_name:, record_ids:)
+    def perform(class_name: nil, record_ids: [])
       klass = class_name.constantize
       scope = Searchkick.load_records(klass, record_ids)
       scope = scope.search_import if scope.respond_to?(:search_import)
